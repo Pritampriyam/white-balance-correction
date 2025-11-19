@@ -1,0 +1,39 @@
+# Training-specific configuration
+
+defaults:
+  - base
+
+# Experiment tracking
+experiment:
+  name: "white_balance_resnet34"
+  use_wandb: true
+  log_interval: 50
+
+# Checkpoint settings
+checkpoint:
+  save_dir: "outputs/models"
+  save_best_only: true
+  monitor: "val_loss"
+  mode: "min"
+
+# Data augmentation
+augmentation:
+  train:
+    - name: RandomResizedCrop
+      height: 224
+      width: 224
+      scale: [0.8, 1.0]
+    - name: HorizontalFlip
+      p: 0.5
+    - name: RandomBrightnessContrast
+      p: 0.3
+      brightness_limit: 0.1
+      contrast_limit: 0.1
+    - name: GaussianBlur
+      p: 0.2
+      blur_limit: 3
+  
+  val:
+    - name: Resize
+      height: 224
+      width: 224
