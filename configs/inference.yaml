@@ -1,0 +1,9 @@
+# Inference-specific configuration
+
+defaults:
+  - base
+
+inference:
+  checkpoint_path: "outputs/models/best_model.pth"
+  output_csv: "outputs/predictions/submission.csv"
+  round_predictions: true
