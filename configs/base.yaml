@@ -1,0 +1,46 @@
+# Base configuration for White Balance Correction
+
+# Data settings
+data:
+  image_size: 224
+  train_image_dir: "data/raw/train/images"
+  val_image_dir: "data/raw/validation/images"
+  train_csv: "data/raw/train/sliders.csv"
+  val_csv: "data/raw/validation/sliders_inputs.csv"
+  
+  # Metadata columns to use
+  numeric_features: ["currTemp", "currTint", "aperture", "iso", "shutter"]
+  categorical_features: ["camera_model"]
+  
+  # Data split
+  val_size: 0.2
+  random_state: 42
+
+# Model settings
+model:
+  name: "resnet34"
+  pretrained: true
+  metadata_hidden_size: 64
+  hidden_size: 512
+  dropout: 0.3
+
+# Training settings
+training:
+  batch_size: 32
+  epochs: 100
+  learning_rate: 1e-4
+  weight_decay: 1e-4
+  patience: 10
+  
+  # Loss function: "l1", "mse", "huber"
+  loss: "l1"
+  
+  # Scheduler: "plateau", "cosine", "step"
+  scheduler: "plateau"
+  scheduler_patience: 5
+  scheduler_factor: 0.5
+
+# Inference settings
+inference:
+  batch_size: 16
+  output_csv: "outputs/predictions/submission.csv"
